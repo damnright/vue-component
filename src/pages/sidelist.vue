@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <p class="head">sidelist</p>
-    <div style="background: #0FFFB4;">
+    <div style="background: #0FFFB4;height: 48px;">
       <sidelist></sidelist>
     </div>
     <div class="tip">

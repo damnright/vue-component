@@ -1,58 +1,68 @@
 <template>
-    <div :class="['btn',{btnHover:isHover}]" @mouseover="isHover=true" @mouseleave="btnLeave" ref="btn">
-      <div style="display: flex;height: 100%;justify-content: space-between;align-items: center;">
-        <i class="material-icons" style="padding-top: 3px;">dehaze</i>{{'&nbsp' + menuName}}
-      </div>
-      <transition name="slide" @before-enter="disable(0)" @after-enter="enable(0)"
-                  @before-leave="disable(0)" @after-leave="disable(0)">
-        <div class="sideLeft" :style="sideLc" ref="sideLeft" v-if="isHover">
-          <ul :class="['sideLeftList',{prevent:state0}]" @mouseover="mouseover(1)" @mouseleave="childLeave(1)">
-            <li :class="['sideItem',{blue:c1===index}]" v-for="(item,index) in sideList" :key="index"
-                @mouseover="mouseoverItem(1,index)">{{item.text}}<span
-              class="icon" v-if="item.child!==undefined"><i class="material-icons"
-                                                            style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
-            </li>
-            <transition name="child1" @before-enter="disable(1)" @after-enter="enable(1)"
-                        @before-leave="disable(1)" @after-leave="disable(1)">
-              <div class="child1" v-if="isHover1&&c1>-1&&sideList[c1].child!==undefined">
-                <ul :class="['child1List',{prevent:state1}]" @mouseover="mouseover(2)" @mouseleave="childLeave(2)">
-                  <li :class="['sideItem',{blue:c2===index1}]"
-                      v-for="(item1,index1) in sideList[c1].child"
-                      :key="index1" @mouseover="mouseoverItem(2,index1)">{{item1.text}}<span class="icon"
-                                                                                             v-if="item1.child!==undefined"><i
-                    class="material-icons" style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
-                  </li>
-                  <transition name="child2" @before-enter="disable(2)" @after-enter="enable(2)"
-                              @before-leave="disable(2)" @after-leave="disable(2)">
-                    <div class="child2"
-                         v-if="isHover2&&c2>-1&&sideList[c1].child!==undefined&&sideList[c1].child[c2].child!==undefined">
-                      <ul :class="['child2List',{prevent:state2}]" @mouseover="mouseover(3)"
-                          @mouseleave="childLeave(3)">
-                        <li :class="['sideItem',{blue:c3===index2}]"
-                            v-for="(item2,index2) in sideList[c1].child[c2].child"
-                            :key="index2" @mouseover="c3=index2">{{item2.text}}
-                        </li>
-                      </ul>
-                      <div class="sideItem sideItemExtra">
-                        {{sideList[c1].child !== undefined && sideList[c1].child[c2].childExtra !== undefined ? sideList[c1].child[c2].childExtra : ''}}
-                      </div>
-                    </div>
-                  </transition>
-                </ul>
-                <div class="sideItem sideItemExtra">
-                  {{sideList[c1].childExtra !== undefined ? sideList[c1].childExtra : ''}}
-                </div>
-              </div>
-            </transition>
-          </ul>
-          <div class="sideItem sideItemExtra">yeah~take it boy</div>
-          <div class="sideItem sideItemLast">有问题联系110</div>
-        </div>
-      </transition>
+  <div :class="['btn',{btnHover:isHover}]" @mouseover="isHover=true" @mouseleave="btnLeave" ref="btn">
+    <div class="flex-center">
+      <i class="material-icons" style="padding-top: 3px;">dehaze</i>{{'&nbsp' + menuName}}
     </div>
+    <transition name="slide" @before-enter="disable(0)" @after-enter="enable(0)"
+                @before-leave="disable(0)" @after-leave="disable(0)">
+      <div class="sideLeft" :style="sideLc" ref="sideLeft" v-if="isHover">
+        <ul :class="['sideLeftList',{prevent:state0}]" @mouseover="mouseover(1)" @mouseleave="childLeave(1)">
+          <li :class="['sideItem',{blue:c1===index}]" v-for="(item,index) in sideList" :key="index"
+              @mouseover="mouseoverItem(1,index)">{{item.text}}<span
+            class="icon" v-if="item.child!==undefined"><i class="material-icons"
+                                                          style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
+          </li>
+          <transition name="child1" @before-enter="disable(1)" @after-enter="enable(1)"
+                      @before-leave="disable(1)" @after-leave="disable(1)">
+            <div class="child1" v-if="isHover1&&c1>-1&&sideList[c1].child!==undefined">
+              <ul :class="['child1List',{prevent:state1}]" @mouseover="mouseover(2)" @mouseleave="childLeave(2)">
+                <li :class="['sideItem',{blue:c2===index1}]"
+                    v-for="(item1,index1) in sideList[c1].child"
+                    :key="index1" @mouseover="mouseoverItem(2,index1)">{{item1.text}}<span class="icon"
+                                                                                           v-if="item1.child!==undefined"><i
+                  class="material-icons" style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
+                </li>
+                <transition name="child2" @before-enter="disable(2)" @after-enter="enable(2)"
+                            @before-leave="disable(2)" @after-leave="disable(2)">
+                  <div class="child2"
+                       v-if="isHover2&&c2>-1&&sideList[c1].child!==undefined&&sideList[c1].child[c2].child!==undefined">
+                    <ul :class="['child2List',{prevent:state2}]" @mouseover="mouseover(3)"
+                        @mouseleave="childLeave(3)">
+                      <li :class="['sideItem',{blue:c3===index2}]"
+                          v-for="(item2,index2) in sideList[c1].child[c2].child"
+                          :key="index2" @mouseover="c3=index2">{{item2.text}}
+                      </li>
+                    </ul>
+                    <div class="sideItem sideItemExtra">
+                      {{sideList[c1].child !== undefined && sideList[c1].child[c2].childExtra !== undefined ? sideList[c1].child[c2].childExtra : ''}}
+                    </div>
+                  </div>
+                </transition>
+                <div class="child2Back" v-if="isHover2"></div>
+              </ul>
+              <div class="sideItem sideItemExtra">
+                {{sideList[c1].childExtra !== undefined ? sideList[c1].childExtra : ''}}
+              </div>
+            </div>
+          </transition>
+          <div class="child1Back" v-if="isHover1"></div>
+        </ul>
+        <div class="sideItem sideItemExtra">yeah~take it boy</div>
+        <div class="sideItem sideItemLast">有问题联系110</div>
+      </div>
+    </transition>
+    <div class="sideLeftBack" v-if="isHover"></div>
+  </div>
 </template>
 
 <style scoped>
+  .flex-center {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .btn {
     text-align: left;
     height: 100%;
@@ -65,14 +75,13 @@
     background-color: #05E4FF;
   }
 
-  .sideLeftWrapper {
+  .sideLeftBack {
     position: fixed;
     width: 301px;
     height: 100%;
     left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    z-index: 10;
+    opacity: 0;
+    z-index: 9;
   }
 
   .sideLeft {
@@ -88,6 +97,16 @@
     z-index: 10;
   }
 
+  .child1Back {
+    position: absolute;
+    width: 301px;
+    height: 100%;
+    left: 301px;
+    top: 0;
+    opacity: 0;
+    z-index: 8;
+  }
+
   .child1 {
     position: absolute;
     background-color: #242524;
@@ -98,6 +117,16 @@
     padding: 10px 0;
     border-right: 1px solid #515052;
     z-index: 9;
+  }
+
+  .child2Back {
+    position: absolute;
+    width: 301px;
+    height: 100%;
+    left: 301px;
+    top: 0;
+    opacity: 0;
+    z-index: 7;
   }
 
   .child2 {
@@ -242,13 +271,13 @@
         this['state' + i] = false;
       },
       getElTop(el){
-          let relTop=el.offsetTop;
-          let current=el.offsetParent;
-          while (current!==null){
-              relTop+=current.offsetTop;
-              current=current.offsetParent
-          }
-          return relTop
+        let relTop = el.offsetTop;
+        let current = el.offsetParent;
+        while (current !== null) {
+          relTop += current.offsetTop;
+          current = current.offsetParent
+        }
+        return relTop
       },
     },
     mounted(){
