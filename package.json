@@ -2,7 +2,8 @@
   "name": "vue-component",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "",
+  "author": "yuyang",
+  "license":"Apache-2.0",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
