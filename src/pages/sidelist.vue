@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper">
     <p class="head">sidelist</p>
-    <sidelist></sidelist>
+    <div style="background: #0FFFB4;">
+      <sidelist></sidelist>
+    </div>
     <div class="tip">
       <p class="tipTitle">Parameter：</p>
       <ul>
@@ -20,6 +22,7 @@
 <style scoped>
   .wrapper {
     font: 24px PingFangSC-Regular, sans-serif;
+    text-align: left;
   }
 
   .head {
