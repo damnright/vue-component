@@ -5,14 +5,12 @@
   <div class="tip">
     <p class="tipTitle">Parameter：</p>
     <ul>
-      <li>menuName:'菜单名'</li>
-      <li>sideList:[{text: '1',child: [{text: '11', child: [{text: '111'}, {text: '112'}], childExtra: '韩红听了想打人',}, {
-        text: '12',child: [{text: '121'}]}, {text: '13'}],childExtra: '你妹的',},{text: '2',child: [{text: '21'}],childExtra: '嘟嘟',}]</li>
+      <li>data:['李奥瑞克', '帕克', '德玛西亚', '蛤丝卡', '比利海灵顿', '新垣结衣']</li>
     </ul>
     <p class="tipTitle">Style：</p>
-    <p>样式多变，在组件中自行修改</p>
+    <p>在组件中自行修改</p>
     <p class="tipTitle">Usage：</p>
-    <p>组件可单独使用，也可添加到tabbar中作为子元素，但必须靠屏幕左边。</p>
+    <p>直接用，改改样式</p>
   </div>
 </div>
 </template>

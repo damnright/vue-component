@@ -1,24 +1,24 @@
 <template>
-  <div :class="['btn',{btnHover:isHover}]" @mouseover="isHover=true" @mouseleave="btnLeave" ref="btn">
+  <div :class="['btn',{btnHover:isHover}]" @mouseenter="isHover=true" @mouseleave="btnLeave" ref="btn">
     <div class="flex-center">
       <i class="material-icons" style="padding-top: 3px;">dehaze</i>{{'&nbsp' + menuName}}
     </div>
     <transition name="slide" @before-enter="disable(0)" @after-enter="enable(0)"
                 @before-leave="disable(0)" @after-leave="disable(0)">
       <div class="sideLeft" :style="sideLc" ref="sideLeft" v-if="isHover">
-        <ul :class="['sideLeftList',{prevent:state0}]" @mouseover="mouseover(1)" @mouseleave="childLeave(1)">
+        <ul :class="['sideLeftList',{prevent:state0}]" @mouseenter="mouseover(1)" @mouseleave="childLeave(1)">
           <li :class="['sideItem',{blue:c1===index}]" v-for="(item,index) in sideList" :key="index"
-              @mouseover="mouseoverItem(1,index)">{{item.text}}<span
+              @mouseenter="mouseoverItem(1,index)">{{item.text}}<span
             class="icon" v-if="item.child!==undefined"><i class="material-icons"
                                                           style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
           </li>
           <transition name="child1" @before-enter="disable(1)" @after-enter="enable(1)"
                       @before-leave="disable(1)" @after-leave="disable(1)">
             <div class="child1" v-if="isHover1&&c1>-1&&sideList[c1].child!==undefined">
-              <ul :class="['child1List',{prevent:state1}]" @mouseover="mouseover(2)" @mouseleave="childLeave(2)">
+              <ul :class="['child1List',{prevent:state1}]" @mouseenter="mouseover(2)" @mouseleave="childLeave(2)">
                 <li :class="['sideItem',{blue:c2===index1}]"
                     v-for="(item1,index1) in sideList[c1].child"
-                    :key="index1" @mouseover="mouseoverItem(2,index1)">{{item1.text}}<span class="icon"
+                    :key="index1" @mouseenter="mouseoverItem(2,index1)">{{item1.text}}<span class="icon"
                                                                                            v-if="item1.child!==undefined"><i
                   class="material-icons" style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
                 </li>
@@ -26,11 +26,11 @@
                             @before-leave="disable(2)" @after-leave="disable(2)">
                   <div class="child2"
                        v-if="isHover2&&c2>-1&&sideList[c1].child!==undefined&&sideList[c1].child[c2].child!==undefined">
-                    <ul :class="['child2List',{prevent:state2}]" @mouseover="mouseover(3)"
+                    <ul :class="['child2List',{prevent:state2}]" @mouseenter="mouseover(3)"
                         @mouseleave="childLeave(3)">
                       <li :class="['sideItem',{blue:c3===index2}]"
                           v-for="(item2,index2) in sideList[c1].child[c2].child"
-                          :key="index2" @mouseover="c3=index2">{{item2.text}}
+                          :key="index2" @mouseenter="c3=index2">{{item2.text}}
                       </li>
                     </ul>
                     <div class="sideItem sideItemExtra">

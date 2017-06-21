@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <ul class="tabbar">
-      <li v-for="(item,index) in data" :key="index" ref="li">
+    <ul class="tabbar" @mouseenter="ul=true" @mouseleave="ul=false">
+      <li v-for="(item,index) in data" :key="index" ref="li" @mouseenter="hover(index)" @mouseleave="leave(index)">
         {{item}}
       </li>
-      <div class="border"></div>
+      <div class="border" :style="{left:left+'px',width:width+'px',transitionProperty:tp}"></div>
     </ul>
   </div>
 </template>
@@ -19,10 +19,10 @@
   }
 
   .container:hover {
-    background: #2E2E2D;
+    background: #1D1E1E;
   }
 
-  ul.tabbar{
+  ul.tabbar {
     position: relative;
     display: inline-block;
     margin: 0 auto;
@@ -36,22 +36,14 @@
     height: 100%;
   }
 
-  .border{
+  .border {
     position: absolute;
     bottom: 0;
     left: 0;
     height: 3px;
-    width: 100px;
+    width: 0;
     background: #05E4FF;
-    transition: all 1s;
-  }
-
-  ul:hover .border{
-    transform: translateX(300px);
-  }
-
-  li:hover .border{
-    width: 100%;
+    transition-duration: 0.4s;
   }
 </style>
 
@@ -65,9 +57,30 @@
         }
       }
     },
-    methods: {},
-    mounted(){
-        console.log(this.$refs.li)
+    data(){
+      return {
+        ul: false,
+        enter: false,
+        left: 0,
+        width: 0,
+        tp: 'width',
+      }
+    },
+    methods: {
+      hover(index){
+        let rectObj = this.$refs.li[index].getBoundingClientRect();
+        this.tp = this.enter ? 'width' : 'all';
+        [this.left, this.width] = [rectObj.left, rectObj.width];
+      },
+      leave(index){
+        this.enter = false;
+        this.width = 0;
+      }
+    },
+    watch: {
+      ul(){
+        this.enter = true;
+      }
     },
   };
 </script>
