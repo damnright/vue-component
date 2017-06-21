@@ -14,7 +14,7 @@
       <p class="tipTitle">Style：</p>
       <p>样式多变，在组件中自行修改</p>
       <p class="tipTitle">Usage：</p>
-      <p>组件可单独使用，也可添加到tabbar中作为子元素，但必须靠屏幕左边。</p>
+      <p>组件可单独使用，也可作为子元素。</p>
     </div>
   </div>
 </template>

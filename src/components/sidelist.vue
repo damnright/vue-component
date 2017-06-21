@@ -270,18 +270,11 @@
       enable(i){
         this['state' + i] = false;
       },
-      getElTop(el){
-        let relTop = el.offsetTop;
-        let current = el.offsetParent;
-        while (current !== null) {
-          relTop += current.offsetTop;
-          current = current.offsetParent
-        }
-        return relTop
-      },
     },
     mounted(){
-      this.sideLc.top = this.getElTop(this.$refs.btn) + this.$refs.btn.offsetHeight + 'px';
+      let rect=this.$refs.btn.getBoundingClientRect();
+        this.sideLc.top=rect.top+rect.height;
+        console.log(this.sideLc.top);
     },
   };
 

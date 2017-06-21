@@ -1,11 +1,10 @@
 <template>
   <div class="container">
     <ul class="tabbar">
-      <li style="padding: 0 20px;height: 60px;"><sidelist ref="sl"></sidelist></li>
-      <li v-for="(item,index) in data" :key="index">
+      <li v-for="(item,index) in data" :key="index" ref="li">
         {{item}}
-        <div class="border"></div>
       </li>
+      <div class="border"></div>
     </ul>
   </div>
 </template>
@@ -24,12 +23,12 @@
   }
 
   ul.tabbar{
+    position: relative;
     display: inline-block;
     margin: 0 auto;
   }
 
   .tabbar li {
-    position: relative;
     display: inline-block;
     font-size: 15px;
     padding: 20px 20px;
@@ -37,18 +36,18 @@
     height: 100%;
   }
 
-  li:hover {
-    color: #05E4FF;
-  }
-
   .border{
     position: absolute;
     bottom: 0;
     left: 0;
     height: 3px;
-    width: 0;
+    width: 100px;
     background: #05E4FF;
-    transition: all 0.3s;
+    transition: all 1s;
+  }
+
+  ul:hover .border{
+    transform: translateX(300px);
   }
 
   li:hover .border{
@@ -57,12 +56,7 @@
 </style>
 
 <script>
-  import sidelist from '../components/sidelist.vue'
-
   export default {
-      components:{
-          sidelist
-      },
     props: {
       data: {
         type: Array,
@@ -72,6 +66,9 @@
       }
     },
     methods: {},
+    mounted(){
+        console.log(this.$refs.li)
+    },
   };
 </script>
 
