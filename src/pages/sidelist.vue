@@ -1,20 +1,8 @@
 <template>
   <div class="wrapper">
     <p class="head">sidelist</p>
-    <div style="background: #0FFFB4;height: 48px;">
-      <sidelist></sidelist>
-    </div>
-    <div class="tip">
-      <p class="tipTitle">Parameter：</p>
-      <ul>
-        <li>menuName:'菜单名'</li>
-        <li>sideList:[{text: '1',child: [{text: '11', child: [{text: '111'}, {text: '112'}], childExtra: '韩红听了想打人',}, {
-          text: '12',child: [{text: '121'}]}, {text: '13'}],childExtra: '你妹的',},{text: '2',child: [{text: '21'}],childExtra: '嘟嘟',}]</li>
-      </ul>
-      <p class="tipTitle">Style：</p>
-      <p>样式多变，在组件中自行修改</p>
-      <p class="tipTitle">Usage：</p>
-      <p>组件可单独使用，也可作为子元素。</p>
+    <div style="background: #fff;height: 42px;font-size: 14px;margin-left:60px;">
+      <sidelist @change="ooo"></sidelist>
     </div>
   </div>
 </template>
@@ -57,6 +45,14 @@
     data(){
       return {}
     },
+    methods:{
+      ooo(results){
+        console.log(results.serv+results.app)
+      }
+    },
+    mounted(){
+
+    }
   };
 </script>
 
