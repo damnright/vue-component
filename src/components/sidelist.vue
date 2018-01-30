@@ -19,7 +19,7 @@
                 <li :class="['sideItem',{blue:c2===index1}]"
                     v-for="(item1,index1) in sideList[c1].child"
                     :key="index1" @mouseenter="mouseoverItem(2,index1)">{{item1.text}}<span class="icon"
-                                                                                            v-if="item1.child!==undefined"><i
+                                                                                           v-if="item1.child!==undefined"><i
                   class="material-icons" style="font-size: 30px;padding-top: 6px;">keyboard_arrow_right</i></span>
                 </li>
                 <transition name="child2" @before-enter="disable(2)" @after-enter="enable(2)"
@@ -273,8 +273,8 @@
     },
     mounted(){
       let rect=this.$refs.btn.getBoundingClientRect();
-      this.sideLc.top=rect.top+rect.height;
-      console.log(this.sideLc.top);
+        this.sideLc.top=rect.top+rect.height;
+        console.log(this.sideLc.top);
     },
   };
 
