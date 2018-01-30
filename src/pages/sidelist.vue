@@ -2,7 +2,7 @@
   <div class="wrapper">
     <p class="head">sidelist</p>
     <div style="background: #fff;height: 42px;font-size: 14px;margin-left:60px;">
-      <sidelist @change="ooo"></sidelist>
+      <sidelist></sidelist>
     </div>
   </div>
 </template>
@@ -46,9 +46,6 @@
       return {}
     },
     methods:{
-      ooo(results){
-        console.log(results.serv+results.app)
-      }
     },
     mounted(){
 
