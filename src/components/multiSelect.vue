@@ -15,7 +15,7 @@
     </div>
     <div class="menus2" :style="{left:left+'px'}" tabindex="-1" @blur="m2Focusout" v-show="isMenu2" ref="m2">
       <ul class="menu2" ref="ul2">
-        <li class="item2 tip">按字母顺序（最多选择3个）</li>
+        <li class="item2 tip">{{ tip }}</li>
         <li v-for="(obj,index) in list" :key="index" ref="li2">
           <div class="item3 title">{{Object.keys(obj)[0]}}</div>
           <div class="item3" v-for="(item,i) in Object.values(obj)[0]" :key="i" :ref="level0+''+item"
@@ -301,10 +301,10 @@
   export default {
     name: 'multiSelect',
     props: {
-      num:{
+      num: {
         //多选数量
-        type:Number,
-        default:2
+        type: Number,
+        default: 2
       },
       options: {
         type: Array
@@ -314,7 +314,7 @@
       prop: 'value',
       event: 'change'
     },
-    data () {
+    data() {
       return {
         isFocus: false,
         isOpen: false,
@@ -328,7 +328,7 @@
         state: true
       }
     },
-    created () {
+    created() {
       // 点击其他不在的区域触发事件
       document.addEventListener('click', (e) => {
         if (!this.$el.contains(e.target)) {
@@ -336,26 +336,25 @@
         }
       })
     },
-    mounted () {
+    mounted() {
       this.level1 = [this.level1First]
       this.styleBlue(false, this.level0)
       this.ok && this.$emit('change', {serv: this.options[this.level0].serv, app: this.level1.join(',')})
     },
     computed: {
-      ok () {
+      tip() {
+        return `按字母顺序（最多选择${this.num}个）`
+      },
+      ok() {
         return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0].serv.length > 0) && (this.options[0].child.length > 0)
       },
-      value () {
-        let temp
+      value() {
+        let temp, temp1
         temp = '' + this.options[this.level0].serv
-        if (this.level1.length === 1) {
-          temp += '/' + this.level1[0]
-        } else if (this.level1.length === 2) {
-          temp += '/' + this.level1[0] + ',' + this.level1[1]
-        }
-        return temp
+        temp1 = [...this.level1].join(',')
+        return temp1 ? temp + '/' + temp1 : temp
       },
-      list () {
+      list() {
         let init = this.options[this.level0].child
         let initA = init.map(x => this.py(x))
         let result = {'other': []}
@@ -393,13 +392,13 @@
       }
     },
     watch: {
-      isOpen (now) {
+      isOpen(now) {
         if (!now) {
           let results = {serv: this.options[this.level0].serv, app: this.level1.join(',')}
           this.$emit('change', results)
         }
       },
-      level0 (now, old) {
+      level0(now, old) {
         this.$nextTick(() => {
           this.styleBack(false, old)
           this.styleBlue(false, now)
@@ -407,7 +406,7 @@
           this.level1 = [this.level1First]
         })
       },
-      level1 (now) {
+      level1(now) {
         if (this.state) {
           this.$nextTick(() => {
             this.styleBack(true, this.level1Old)
@@ -417,24 +416,24 @@
       }
     },
     methods: {
-      py (text) {
+      py(text) {
         return pinyin(text, {
           style: pinyin.STYLE_FIRST_LETTER
         })[0][0][0].toLocaleUpperCase()
       },
-      wf () {
+      wf() {
         this.isFocus = true
       },
-      wb () {
+      wb() {
         this.isFocus = false
       },
-      change () {
+      change() {
         this.isOpen = !this.isOpen
       },
-      m2Focusout () {
+      m2Focusout() {
         this.isMenu2 = false
       },
-      check (index) {
+      check(index) {
         this.isMenu2 = true
         this.left = this.$refs.ul1.getBoundingClientRect().width
         if (this.level0 !== index) {
@@ -452,19 +451,19 @@
           this.$refs.m2.focus()
         })
       },
-      click (app) {
+      click(app) {
         this.level1Old = JSON.parse(JSON.stringify(this.level1))
         let index = this.level1.indexOf(app)
         let length = this.level1.length
         if (index > -1) {
           this.level1.splice(index, 1)
         } else {
-          if (length < 2) {
+          if (length < this.num) {
             this.level1.push(app)
           }
         }
       },
-      styleBlue (child, i) {
+      styleBlue(child, i) {
         if (!child) {
           this.$refs.li1[i].setAttribute('style', 'color: #409eff;')
         } else {
@@ -474,7 +473,7 @@
           })
         }
       },
-      styleBack (child, i) {
+      styleBack(child, i) {
         if (!child) {
           this.$refs.li1[i].removeAttribute('style')
         } else {
