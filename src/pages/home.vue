@@ -35,7 +35,7 @@
   export default {
     data() {
       return {
-        itemList: [{ name: 'tabbar' }, { name: 'sidelist' },{name: 'multiSelect'}],
+        itemList: [{ name: 'tabbar' }, { name: 'sidelist' },{name: 'multiSelect'},{name: 'multiSelect1'}],
       };
     },
   };
