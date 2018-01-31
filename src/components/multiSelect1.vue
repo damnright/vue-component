@@ -247,7 +247,6 @@
     position: relative;
     opacity: 1;
     height: 272px;
-    border-right: 1px solid #e4e7ed;
     margin: 0;
     padding: 0;
   }

@@ -235,16 +235,13 @@
   .menu2 {
     display: inline-block;
     vertical-align: top;
-
     box-sizing: border-box;
     background: #fff;
     margin: 0;
-
     position: relative;
     opacity: 1;
     overflow: auto;
     height: 182px;
-    border-right: 1px solid #e4e7ed;
     padding-bottom: 6px;
   }
 
