@@ -2,7 +2,7 @@
   <div class="wrapper">
     <p class="head">multiSelect1</p>
     <div style="background: #fff;height: 42px;font-size: 14px;margin-left:60px;">
-      <multiSelect1 v-if="ok" :options="options" :num="num" v-model="value" @change="change"></multiSelect1>
+      <multiSelect1 v-if="ok" :options="options" :num="num" :key1="'serv'" :key2="'child'" :param1="'serv'" :param2="'app'" v-model="value" @change="change"></multiSelect1>
     </div>
   </div>
 </template>

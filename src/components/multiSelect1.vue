@@ -8,7 +8,7 @@
     <div :class="[{'menus-h':isOpen},'menus']" ref="ul1">
       <ul :class="[{'menu-h':isOpen},'menu']">
         <li :class="[{'item-h':isOpen},'item']" @click="check(index)"
-            v-for="(item,index) in options" :key="index" ref="li1">{{item.serv}}
+            v-for="(item,index) in options" :key="index" ref="li1" :title="item[key1]">{{item[key1]}}
         </li>
       </ul>
     </div>
@@ -17,7 +17,7 @@
         <li class="item2 tip">{{ tip }}</li>
         <li v-for="(obj,index) in list" :key="index" ref="li2">
           <div class="item3 title">{{Object.keys(obj)[0]}}</div>
-          <div class="item3" v-for="(item,i) in Object.values(obj)[0]" :key="i" :ref="level0+''+item"
+          <div class="item3" v-for="(item,i) in Object.values(obj)[0]" :key="i" :ref="level0+''+item" :title="item"
                @click="click(item)">{{item}}
           </div>
         </li>
@@ -274,6 +274,10 @@
   export default {
     name: 'multiSelect',
     props: {
+      key1: String,
+      key2: String,
+      param1: String,
+      param2: String,
       num: {
         //多选数量
         type: Number,
@@ -312,20 +316,20 @@
     mounted() {
       this.level1 = [this.level1First]
       this.styleBlue(false, this.level0)
-      this.ok && this.$emit('change', {serv: this.options[this.level0].serv, app: this.level1.join(',')})
+      this.ok && this.$emit('change', {[this.param1]: this.options[this.level0][this.key1], [this.param2]: this.level1.join(',')})
     },
     computed: {
       tip() {
         return `按字母顺序(最多选${this.num}个)`
       },
       ok() {
-        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0].serv.length > 0) && (this.options[0].child.length > 0)
+        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0][this.key1].length > 0) && (this.options[0][this.key2].length > 0)
       },
       value() {
-        return '' + this.options[this.level0].serv
+        return '' + this.options[this.level0][this.key1]
       },
       list() {
-        let init = this.options[this.level0].child
+        let init = this.options[this.level0][this.key2]
         let initA = init.map(x => this.py(x))
         let result = {'other': []}
         let temp = []
@@ -367,7 +371,7 @@
     watch: {
       isOpen(now) {
         if (!now) {
-          let results = {serv: this.options[this.level0].serv, app: this.level1.join(',')}
+          let results = {[this.param1]: this.options[this.level0][this.key1], [this.param2]: this.level1.join(',')}
           this.$emit('change', results)
         }
       },
