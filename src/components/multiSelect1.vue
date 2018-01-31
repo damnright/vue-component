@@ -23,12 +23,37 @@
         </li>
       </ul>
     </div>
+    <transition name="fade">
+      <div class="toast" v-show="isToast" ref="toast">{{toastText}}</div>
+    </transition>
   </div>
 </template>
 
 <style scoped lang="scss">
   li {
     display: block;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+
+  .toast{
+    z-index: 3002;
+    position: fixed;
+    top: 6%;
+    left: 50%;
+    width: 240px;
+    transform: translate(-50%,0);
+    background: #fdf6ec;
+    color: #e6a23c;
+    text-align: center;
+    pointer-events: none;
+    cursor: none;
+    transition: all .3s;
   }
 
   ::-webkit-scrollbar{
@@ -297,6 +322,7 @@
         isOpen: false,
         isCheck: false,
         isMenu2: false,
+        isToast: false,
         level0: 0,
         level1: [],
         level1Old: [],
@@ -319,6 +345,9 @@
       this.ok && this.$emit('change', {[this.param1]: this.options[this.level0][this.key1], [this.param2]: this.level1.join(',')})
     },
     computed: {
+      toastText(){
+        return `最多选择${this.num}个哦~`
+      },
       tip() {
         return `按字母顺序(最多选${this.num}个)`
       },
@@ -437,6 +466,8 @@
         } else {
           if (length < this.num) {
             this.level1.push(app)
+          } else {
+            this.toast()
           }
         }
       },
@@ -459,6 +490,12 @@
             this.$refs[key] && this.$refs[key][0].removeAttribute('style')
           })
         }
+      },
+      toast(){
+        this.isToast=true
+        setTimeout(()=>{
+          this.isToast=false
+        },2000)
       }
     }
   }
