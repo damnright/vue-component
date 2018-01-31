@@ -48,6 +48,7 @@
     left: 50%;
     width: 240px;
     transform: translate(-50%,0);
+    border-radius: 6px;
     background: #fdf6ec;
     color: #e6a23c;
     text-align: center;
