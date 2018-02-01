@@ -12,8 +12,8 @@
         </li>
       </ul>
     </div>
-    <div class="menus2" :style="{left:left+'px'}" tabindex="-1" @blur="m2Focusout" v-show="isMenu2" ref="m2">
-      <ul class="menu2" ref="ul2">
+    <div class="menus2" :style="{left:left+'px'}" tabindex="-1" @blur="m2Focusout" v-show="isMenu2&&list.length>0" ref="m2">
+      <ul class="menu2">
         <li class="item2 tip">{{ tip }}</li>
         <li v-for="(obj,index) in list" :key="index" ref="li2">
           <div class="item3 title">{{Object.keys(obj)[0]}}</div>
@@ -304,7 +304,7 @@
       param1: String,
       param2: String,
       num: {
-        //多选数量
+        // 多选数量
         type: Number,
         default: 2
       },
@@ -352,49 +352,53 @@
         return `按字母顺序(最多选${this.num}个)`
       },
       ok() {
-        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0][this.key1].length > 0) && (this.options[0][this.key2].length > 0)
+        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0][this.key1].length > 0)
       },
       value() {
         return '' + this.options[this.level0][this.key1]
       },
       list() {
         let init = this.options[this.level0][this.key2]
-        let initA = init.map(x => this.py(x))
-        let result = {'other': []}
-        let temp = []
-        // 归类
-        for (let [index, letter] of initA.entries()) {
-          if (letter.charCodeAt(0) < 65 || letter.charCodeAt(0) > 90) {
-            result['other'].push(init[index])
-          } else {
-            if (result.hasOwnProperty(letter)) {
-              result[letter].push(init[index])
+        if(init.length<1){
+          return []
+        }else {
+          let initA = init.map(x => this.py(x))
+          let result = {'other': []}
+          let temp = []
+          // 归类
+          for (let [index, letter] of initA.entries()) {
+            if (letter.charCodeAt(0) < 65 || letter.charCodeAt(0) > 90) {
+              result['other'].push(init[index])
             } else {
-              result[letter] = []
-              result[letter].push(init[index])
+              if (result.hasOwnProperty(letter)) {
+                result[letter].push(init[index])
+              } else {
+                result[letter] = []
+                result[letter].push(init[index])
+              }
             }
           }
-        }
-        if(!result['other'].length>0){
-          delete result['other']
-        }
-        // 数组化
-        for (let [key, value] of Object.entries(result)) {
-          let o = {}
-          o[key] = value
-          temp.push(o)
-        }
-        // 排序
-        temp.sort((a, b) => {
-          if (Object.keys(a)[0].charCodeAt(0) < Object.keys(b)[0].charCodeAt(0)) {
-            return -1
-          } else {
-            return 1
+          if(!result['other'].length>0){
+            delete result['other']
           }
-        })
-        result = temp
-        this.level1First = Object.values(result[0])[0][0]
-        return result
+          // 数组化
+          for (let [key, value] of Object.entries(result)) {
+            let o = {}
+            o[key] = value
+            temp.push(o)
+          }
+          // 排序
+          temp.sort((a, b) => {
+            if (Object.keys(a)[0].charCodeAt(0) < Object.keys(b)[0].charCodeAt(0)) {
+              return -1
+            } else {
+              return 1
+            }
+          })
+          result = temp
+          this.level1First = Object.values(result[0])[0][0]
+          return result
+        }
       }
     },
     watch: {
@@ -450,11 +454,12 @@
             this.level1 = []
             this.level0 = index
             this.state = true
-            this.$refs.m2.focus()
+            console.log(this.list)
+            this.list.length>0&&this.$refs.m2.focus()
           })
         }
         this.$nextTick(() => {
-          this.$refs.m2.focus()
+          this.list.length>0&&this.$refs.m2.focus()
         })
       },
       click(app) {

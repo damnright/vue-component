@@ -51,7 +51,7 @@
     },
     computed:{
       ok(){
-        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0].serv.length > 0) && (this.options[0].child.length > 0)
+        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0].serv.length > 0)
       }
     },
     methods:{
@@ -62,8 +62,8 @@
     mounted(){
       setTimeout(()=>{
         this.options=[
-          {serv:'闷声大发财闷声大发财闷声大发财闷声大发财',child:['闷声大发财','我滴个龟龟','尼玛嗨','黑框长者','吼蛙','非常熟悉西方的这一套的value']},
-          {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
+          {serv:'闷声大发财闷声大发财闷声大发财闷声大发财',child:[]},
+          {serv:'Calvin Harris',child:[]},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
