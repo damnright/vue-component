@@ -2,7 +2,7 @@
   <div class="wrapper">
     <p class="head">multiSelect1</p>
     <div style="background: #fff;height: 42px;font-size: 14px;margin-left:60px;">
-      <multiSelect1 v-if="ok" :options="options" :num="num" :key1="'serv'" :key2="'child'" :param1="'serv'" :param2="'app'" v-model="value" @change="change"></multiSelect1>
+      <multiSelect1 v-if="ok" :options="options" :num="num" :key1="key1" :key2="key2" :param1="p1" :param2="p2" v-model="value" @change="change"></multiSelect1>
     </div>
   </div>
 </template>
@@ -46,12 +46,16 @@
       return {
         num:3,
         options:[],
-        value:''
+        value:'',
+        key1:'serv',
+        key2:'child',
+        p1:'serv',
+        p2:'app'
       }
     },
     computed:{
       ok(){
-        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0].serv.length > 0)
+        return (this.options instanceof Array) && (this.options.length > 0) && (this.options[0][this.key1].length > 0)
       }
     },
     methods:{

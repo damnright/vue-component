@@ -12,7 +12,8 @@
         </li>
       </ul>
     </div>
-    <div class="menus2" :style="{left:left+'px'}" tabindex="-1" @blur="m2Focusout" v-show="isMenu2&&list.length>0" ref="m2">
+    <div class="menus2" :style="{left:left+'px'}" tabindex="-1" @blur="m2Focusout" v-show="isMenu2&&list.length>0"
+         ref="m2">
       <ul class="menu2">
         <li class="item2 tip">{{ tip }}</li>
         <li v-for="(obj,index) in list" :key="index" ref="li2">
@@ -37,17 +38,18 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity .3s;
   }
+
   .fade-enter, .fade-leave-to {
     opacity: 0;
   }
 
-  .toast{
+  .toast {
     z-index: 3002;
     position: fixed;
     top: 6%;
     left: 50%;
     width: 240px;
-    transform: translate(-50%,0);
+    transform: translate(-50%, 0);
     border-radius: 6px;
     background: #fdf6ec;
     color: #e6a23c;
@@ -57,7 +59,7 @@
     transition: all .3s;
   }
 
-  ::-webkit-scrollbar{
+  ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
@@ -70,8 +72,6 @@
     background-color: rgba(0, 0, 0, 0.16);
     border-radius: 4px;
   }
-
-
 
   .wrapper {
     font-family: HiraginoSansGB-W3;
@@ -299,17 +299,32 @@
   export default {
     name: 'multiSelect',
     props: {
-      key1: String,
-      key2: String,
-      param1: String,
-      param2: String,
+      // 传进来的参数键名
+      key1: {
+        type: String,
+        required: true
+      },
+      key2: {
+        type: String,
+        required: true
+      },
+      // 传出去的参数键名
+      param1: {
+        type: String,
+        required: true
+      },
+      param2: {
+        type: String,
+        required: true
+      },
       num: {
         // 多选数量
         type: Number,
         default: 2
       },
       options: {
-        type: Array
+        type: Array,
+        required: true
       }
     },
     model: {
@@ -342,10 +357,13 @@
     mounted() {
       this.level1 = [this.level1First]
       this.styleBlue(false, this.level0)
-      this.ok && this.$emit('change', {[this.param1]: this.options[this.level0][this.key1], [this.param2]: this.level1.join(',')})
+      this.ok && this.$emit('change', {
+        [this.param1]: this.options[this.level0][this.key1],
+        [this.param2]: this.level1.join(',')
+      })
     },
     computed: {
-      toastText(){
+      toastText() {
         return `最多选择${this.num}个哦~`
       },
       tip() {
@@ -359,9 +377,9 @@
       },
       list() {
         let init = this.options[this.level0][this.key2]
-        if(init.length<1){
+        if (init.length < 1) {
           return []
-        }else {
+        } else {
           let initA = init.map(x => this.py(x))
           let result = {'other': []}
           let temp = []
@@ -378,7 +396,7 @@
               }
             }
           }
-          if(!result['other'].length>0){
+          if (!result['other'].length > 0) {
             delete result['other']
           }
           // 数组化
@@ -454,12 +472,11 @@
             this.level1 = []
             this.level0 = index
             this.state = true
-            console.log(this.list)
-            this.list.length>0&&this.$refs.m2.focus()
+            this.list.length > 0 && this.$refs.m2.focus()
           })
         }
         this.$nextTick(() => {
-          this.list.length>0&&this.$refs.m2.focus()
+          this.list.length > 0 && this.$refs.m2.focus()
         })
       },
       click(app) {
@@ -496,11 +513,11 @@
           })
         }
       },
-      toast(){
-        this.isToast=true
-        setTimeout(()=>{
-          this.isToast=false
-        },2000)
+      toast() {
+        this.isToast = true
+        setTimeout(() => {
+          this.isToast = false
+        }, 2000)
       }
     }
   }
