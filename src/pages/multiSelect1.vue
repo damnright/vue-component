@@ -60,7 +60,7 @@
     },
     methods:{
       change(){
-        console.log(this.value)
+        // console.log(this.value)
       }
     },
     mounted(){
@@ -68,7 +68,7 @@
         this.options=[
           {serv:'闷声大发财闷声大发财闷声大发财闷声大发财',child:[]},
           {serv:'Calvin Harris',child:[]},
-          {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
+          {serv:'Calvin Harris',child:['我滴个龟龟']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},

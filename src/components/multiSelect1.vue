@@ -1,5 +1,5 @@
 <template>
-  <div :class="[{'is-focus':isFocus},'wrapper']" tabindex="-1" @focus="wf" @blur="wb" v-if="ok">
+  <div :class="[{'is-focus':isFocus},'wrapper']" tabindex="-1" @focus="wf" v-if="ok">
     <div class="clickArea" @click="change"></div>
     <span class="label">
       {{value}}
@@ -335,7 +335,6 @@
       return {
         isFocus: false,
         isOpen: false,
-        isCheck: false,
         isMenu2: false,
         isToast: false,
         level0: 0,
@@ -350,12 +349,13 @@
       // 点击其他不在的区域触发事件
       document.addEventListener('click', (e) => {
         if (!this.$el.contains(e.target)) {
+          this.isFocus = false
           this.isOpen = false
         }
       })
     },
     mounted() {
-      this.level1 = [this.level1First]
+      this.level1 = this.level1First?[this.level1First]:[]
       this.styleBlue(false, this.level0)
       this.ok && this.$emit('change', {
         [this.param1]: this.options[this.level0][this.key1],
@@ -406,13 +406,7 @@
             temp.push(o)
           }
           // 排序
-          temp.sort((a, b) => {
-            if (Object.keys(a)[0].charCodeAt(0) < Object.keys(b)[0].charCodeAt(0)) {
-              return -1
-            } else {
-              return 1
-            }
-          })
+          temp.sort((a, b) => Object.keys(a)[0].charCodeAt(0) < Object.keys(b)[0].charCodeAt(0)?-1:1)
           result = temp
           this.level1First = Object.values(result[0])[0][0]
           return result
@@ -431,7 +425,7 @@
           this.styleBack(false, old)
           this.styleBlue(false, now)
           this.level1Old = []
-          this.level1 = [this.level1First]
+          this.level1 = this.level1First?[this.level1First]:[]
         })
       },
       level1(now) {
@@ -462,22 +456,29 @@
         this.isMenu2 = false
       },
       check(index) {
-        this.isMenu2 = true
         this.left = this.$refs.ul1.getBoundingClientRect().width
         if (this.level0 !== index) {
           this.state = false
           this.level1Old = JSON.parse(JSON.stringify(this.level1))
           this.styleBack(true, this.level1Old)
+          this.level1 = []
+          this.level0 = index
+          if(this.list.length){
+            this.isMenu2 = true
+          }
+          this.state = true
           this.$nextTick(() => {
-            this.level1 = []
-            this.level0 = index
-            this.state = true
-            this.list.length > 0 && this.$refs.m2.focus()
+            this.isMenu2 && this.$refs.m2.focus()
           })
         }
-        this.$nextTick(() => {
-          this.list.length > 0 && this.$refs.m2.focus()
-        })
+        else {
+          if(this.list.length){
+            this.isMenu2 = true
+          }
+          this.$nextTick(() => {
+            this.isMenu2 && this.$refs.m2.focus()
+          })
+        }
       },
       click(app) {
         this.level1Old = JSON.parse(JSON.stringify(this.level1))
@@ -495,7 +496,9 @@
       },
       styleBlue(child, i) {
         if (!child) {
-          this.$refs.li1[i].setAttribute('style', 'color: #409eff;')
+          if (this.$refs.li1) {
+            this.$refs.li1[i].setAttribute('style', 'color: #409eff;')
+          }
         } else {
           i.forEach((item) => {
             let key = '' + this.level0 + item
