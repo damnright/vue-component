@@ -66,8 +66,8 @@
     mounted(){
       setTimeout(()=>{
         this.options=[
-          {serv:'闷声大发财闷声大发财闷声大发财闷声大发财',child:[]},
-          {serv:'Calvin Harris',child:[]},
+          {serv:'闷声大发财闷声大发财闷声大发财闷声大发财',child:['哔哩哔哩','嘿嘿哒','阿里星球','%$^#&','8765']},
+          {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','搞个大新闻','黑框长者','你们给我搞的这本东西，excited!']},
           {serv:'Calvin Harris',child:['我滴个龟龟']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},
           {serv:'Calvin Harris',child:['你们这样子啊，是不行的！','黑框长者','你们给我搞的这本东西，excited!']},

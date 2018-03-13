@@ -414,6 +414,19 @@
       }
     },
     watch: {
+      options: {
+        handler (now) {
+          this.$nextTick(() => {
+            this.level1 = this.level1First ? [this.level1First] : []
+            this.styleBlue(false, this.level0)
+            this.ok && this.$emit('change', {
+              [this.param1]: this.options[this.level0][this.key1],
+              [this.param2]: this.level1.join(',')
+            })
+          })
+        },
+        deep: true
+      },
       isOpen(now) {
         if (!now) {
           let results = {[this.param1]: this.options[this.level0][this.key1], [this.param2]: this.level1.join(',')}
